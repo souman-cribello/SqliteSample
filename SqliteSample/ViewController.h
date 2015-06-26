@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tblPeople;
 - (IBAction)addNewRecord:(id)sender;
+//testing
 
 @end
 
