@@ -108,10 +108,10 @@
 			children = (
 				C395EE431B3D2520001045ED /* AppDelegate.h */,
 				C395EE441B3D2520001045ED /* AppDelegate.m */,
-				C395EE771B3D6CDF001045ED /* EditInfoViewController.h */,
-				C395EE781B3D6CDF001045ED /* EditInfoViewController.m */,
 				C395EE461B3D2520001045ED /* ViewController.h */,
 				C395EE471B3D2520001045ED /* ViewController.m */,
+				C395EE771B3D6CDF001045ED /* EditInfoViewController.h */,
+				C395EE781B3D6CDF001045ED /* EditInfoViewController.m */,
 				C395EE491B3D2520001045ED /* Main.storyboard */,
 				C395EE4C1B3D2520001045ED /* Images.xcassets */,
 				C395EE4E1B3D2520001045ED /* LaunchScreen.xib */,
@@ -461,6 +461,7 @@
 				C395EE611B3D2520001045ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C395EE621B3D2520001045ED /* Build configuration list for PBXNativeTarget "SqliteSampleTests" */ = {
 			isa = XCConfigurationList;
@@ -469,6 +470,7 @@
 				C395EE641B3D2520001045ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

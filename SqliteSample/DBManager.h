@@ -23,5 +23,6 @@
 -(NSArray *)loadDataFromDB:(NSString *)query;
 
 -(void)executeQuery:(NSString *)query;
+
 @end
 

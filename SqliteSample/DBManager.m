@@ -31,6 +31,7 @@
         [self copyDatabaseIntoDocumentsDirectory];
         
     }
+    
     return self;
 }
 -(void)copyDatabaseIntoDocumentsDirectory

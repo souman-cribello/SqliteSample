@@ -16,7 +16,6 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *txtAge;
 
-
 - (IBAction)saveInfo:(id)sender;
 
 - (IBAction)Skip:(id)sender;
