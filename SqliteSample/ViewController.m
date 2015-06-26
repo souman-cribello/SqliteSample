@@ -28,6 +28,7 @@
     self.tblPeople.dataSource = self;
     
     
+    
     // Initialize the dbManager property.
     self.dbManager = [[DBManager alloc] initWithDatabaseFilename:@"sampledb.sql"];
     
