@@ -7,6 +7,7 @@
 //
 
 #import "EditInfoViewController.h"
+
 #define COLOR_WITH_RGB(r,g,b)   [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:1.0f]
 @interface EditInfoViewController ()
 @property (nonatomic, strong) DBManager *dbManager;
@@ -16,6 +17,8 @@
 {
     UIButton *Submit;
     UIButton *Skip;
+    
+   
 }
 
 - (void)viewDidLoad {
@@ -55,7 +58,9 @@
                action:@selector(Skip:)
      forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:Skip];
-      
+    
+    
+   
 
 }
 #pragma textfieldDelegates
@@ -81,22 +86,58 @@
 ///////here database insertion done ///
 - (IBAction)saveInfo:(id)sender
 {
-    // Prepare the query string.
-    NSString *query = [NSString stringWithFormat:@"insert into peopleInfo values(null, '%@', '%@', %d)", self.txtFirstname.text, self.txtLastname.text, [self.txtAge.text intValue]];
-    ///executequery//
-    [self.dbManager executeQuery:query];
-    // If the query was successfully executed then pop the view controller.
-    if (self.dbManager.affectedRows != 0)
+    CFUUIDRef udid = CFUUIDCreate(NULL);
+    NSString *StrUUID= (NSString *) CFBridgingRelease(CFUUIDCreateString(NULL, udid));
+    
+    UIDevice *device = [UIDevice currentDevice];
+    NSString  *currentDeviceId = [[device identifierForVendor]UUIDString];
+    
+    NSString *UUID=[NSString stringWithFormat:@"%@-%@",StrUUID,currentDeviceId];
+    
+    NSString *first_Name=self.txtFirstname.text;
+    NSString *last_name=self.txtLastname.text;
+    NSString *Age=self.txtAge.text;
+    //////insert into core data base///
+    id delegate7 = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *context7 = [delegate7 managedObjectContext];
+    NSManagedObject *dataRecord7 = [NSEntityDescription
+                                    insertNewObjectForEntityForName:@"PersonInfo" inManagedObjectContext:context7];
+    
+    
+    [dataRecord7 setValue:first_Name forKey:@"first_name"];
+    [dataRecord7 setValue:last_name forKey:@"last_name"];
+    [dataRecord7 setValue:Age forKey:@"age"];
+    [dataRecord7 setValue:UUID forKey:@"id"];
+    NSError *error7;
+    
+    if (![context7 save:&error7])
     {
-        NSLog(@"Query was executed successfully. Affected rows = %d", self.dbManager.affectedRows);
+        NSLog(@"Error:%@", error7);
         
-        // Pop the view controller.
-        [self.navigationController popViewControllerAnimated:YES];
     }
-    else{
-        NSLog(@"Could not execute the query.");
-    }
+    else
+    {
+        //////////////INSERTING DATA INTO SQLITE///////
+        // Prepare the query string.
+        NSString *query = [NSString stringWithFormat:@"insert into peopleInfo values(null, '%@', '%@', %d)", self.txtFirstname.text, self.txtLastname.text, [self.txtAge.text intValue]];
+        ///executequery//
+        [self.dbManager executeQuery:query];
+        // If the query was successfully executed then pop the view controller.
+        if (self.dbManager.affectedRows != 0)
+        {
+            NSLog(@"Query was executed successfully. Affected rows = %d", self.dbManager.affectedRows);
+            
+            // Pop the view controller.
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        else{
+            NSLog(@"Could not execute the query.");
+        }
 
+    
+    }
+    
+   
 }
 - (IBAction)Skip:(id)sender
 {

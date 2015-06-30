@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DBManager.h"
+#import "AppDelegate.h"
 @interface EditInfoViewController : UIViewController<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *txtFirstname;

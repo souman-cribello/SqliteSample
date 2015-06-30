@@ -20,6 +20,17 @@
 
 
 @implementation ViewController
+{
+
+    /// Local db
+    NSManagedObject *ManagedObject_vitalBmi;
+    NSArray *NsArray_vitalBmi;
+    NSManagedObjectContext *context_vitalBmi;
+    NSMutableArray *Name;
+    NSMutableArray *Age;
+    
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,7 +47,42 @@
     // Load the data.
     [self loadData];
     
+    Name=[[NSMutableArray alloc]init];
+    Age=[NSMutableArray array];
+
+    
+    id delegate1 = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *context1 = [delegate1 managedObjectContext];
+    NSEntityDescription *entity1 = [NSEntityDescription
+                    entityForName:@"PersonInfo" inManagedObjectContext:context1];
+        NSFetchRequest *request1 = [[NSFetchRequest alloc] init];
+    [request1 setEntity:entity1];
+    NSError *error3;
+    NsArray_vitalBmi=[context1 executeFetchRequest:request1 error:&error3];
+    if([NsArray_vitalBmi count]!=0)
+    {
+        ManagedObject_vitalBmi=[NsArray_vitalBmi objectAtIndex:0];
+        for(int i=0;i<NsArray_vitalBmi.count;i++)
+        {
+            ManagedObject_vitalBmi=[NsArray_vitalBmi objectAtIndex:i];
+            [Name addObject:[NSString stringWithFormat:@"%@ %@",[ManagedObject_vitalBmi valueForKey:@"first_name"],[ManagedObject_vitalBmi valueForKey:@"last_name"]]];
+            NSLog(@"namea %@",[ManagedObject_vitalBmi valueForKey:@"first_name"]);
+        }
+        
+    }
+
+//    [Name addObject:[NSString stringWithFormat:@"%@%@",[ManagedObject_vitalBmi valueForKey:@"first_name"],[ManagedObject_vitalBmi valueForKey:@"last_name"]]];
+    NSLog(@"name_array %@",Name);
 }
+- (NSManagedObjectContext *)managedObjectContext {
+    NSManagedObjectContext *context = nil;
+    id delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate performSelector:@selector(managedObjectContext)]) {
+        context = [delegate managedObjectContext];
+    }
+    return context;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
