@@ -50,7 +50,7 @@
     Name=[[NSMutableArray alloc]init];
     Age=[NSMutableArray array];
 
-    
+   /*
     id delegate1 = [UIApplication sharedApplication].delegate;
     NSManagedObjectContext *context1 = [delegate1 managedObjectContext];
     NSEntityDescription *entity1 = [NSEntityDescription
@@ -70,6 +70,31 @@
         }
         
     }
+*/
+    
+    id delegate1 = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *context1 = [delegate1 managedObjectContext];
+    NSEntityDescription *entity1 = [NSEntityDescription
+                                    entityForName:@"PersonInfo" inManagedObjectContext:context1];
+    
+    NSFetchRequest *request1 = [[NSFetchRequest alloc] init];
+    [request1 setEntity:entity1];
+    NSError *error3;
+    
+    NsArray_vitalBmi=[context1 executeFetchRequest:request1 error:&error3];
+    if([NsArray_vitalBmi count]!=0)
+    {
+        context1=[NsArray_vitalBmi objectAtIndex:0];
+        for(int i=0;i<NsArray_vitalBmi.count;i++)
+        {
+            context1=[NsArray_vitalBmi objectAtIndex:i];
+            [Name addObject:[NSString stringWithFormat:@"%@ %@",[context1 valueForKey:@"first_name"],[context1 valueForKey:@"last_name"]]];
+            NSLog(@"namea %@",[context1 valueForKey:@"first_name"]);
+        }
+        
+    }
+
+    
 
 //    [Name addObject:[NSString stringWithFormat:@"%@%@",[ManagedObject_vitalBmi valueForKey:@"first_name"],[ManagedObject_vitalBmi valueForKey:@"last_name"]]];
     NSLog(@"name_array %@",Name);

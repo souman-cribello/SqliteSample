@@ -128,7 +128,9 @@
             NSLog(@"Query was executed successfully. Affected rows = %d", self.dbManager.affectedRows);
             
             // Pop the view controller.
-            [self.navigationController popViewControllerAnimated:YES];
+           //[self.navigationController popViewControllerAnimated:YES];
+           _ViewController = (ViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ViewController"];
+            [self presentViewController:_ViewController animated:YES completion:nil];
         }
         else{
             NSLog(@"Could not execute the query.");
